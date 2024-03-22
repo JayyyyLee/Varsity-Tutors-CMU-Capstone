@@ -13,5 +13,5 @@ MVP1: Run each in order
   - DA_prompting.ipynb : Generate dialogue act lables from transcript
   - DA_Visualization.ipynb : Generate insights from da labeled transcript
     
-Notebook: Python notebooks during exploration and development 
+Notebook: Random notebooks during exploration and development 
 
