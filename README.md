@@ -1,9 +1,9 @@
 # Varsity Tutors & CMU METALS Capstone
 Repository of the code for Capston Team Sky-Jem. 
 ## Structure
-Data 
-- Notebook
+Data
 
-Model
+MVP1
 
-Frontend
+Notebook
+
