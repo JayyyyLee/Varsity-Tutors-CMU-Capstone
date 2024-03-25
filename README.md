@@ -12,6 +12,8 @@ MVP1: Run each in order
   - Entire rubric.ipynb : Overall evaluation for transcript based on rubric
   - DA_prompting.ipynb : Generate dialogue act lables from transcript
   - DA_Visualization.ipynb : Generate insights from da labeled transcript
+
+Model: Trained model .pth files
     
 Notebook: Random notebooks during exploration and development 
 
