@@ -1,5 +1,5 @@
 # Varsity Tutors & CMU METALS Capstone
-Repository of the code for Capston Team Sky-Jem. 
+Repository of the code for Capston Team Sky-Jem which provide data interface for the frontend interface, https://github.com/kevin666iiiii/Capstone-Web.github.io/tree/main. 
 
 
 ## Structure
