@@ -1,5 +1,5 @@
 # Varsity Tutors & CMU METALS Capstone
-Repository of the code for Capston Team Sky-Jem which provide data interface for the frontend interface, https://github.com/kevin666iiiii/Capstone-Web.github.io/tree/main. 
+Repository of the code for Capston Team Sky-Jem.
 
 
 ## Structure
@@ -15,7 +15,7 @@ MVP1: Run each in order
   - DA_Visualization.ipynb : Generate insights from da labeled transcript
 
 MVP2: Run this after MVP1 
-  - sessionMeasurement_Json .ipynb : Generate Json files for frontend dashboard
+  - sessionMeasurement_Json .ipynb : Generate Json files for frontend dashboard, https://github.com/kevin666iiiii/Capstone-Web.github.io/tree/main. 
 
 Model: Trained model .pth files
     
