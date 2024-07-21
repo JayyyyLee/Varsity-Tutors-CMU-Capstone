@@ -15,7 +15,12 @@ MVP1: Run each in order
   - DA_Visualization.ipynb : Generate insights from da labeled transcript
 
 MVP2: Run this after MVP1 
-  - sessionMeasurement_Json .ipynb : Generate Json files for frontend dashboard, https://github.com/kevin666iiiii/Capstone-Web.github.io/tree/main. 
+  - sessionMeasurement_Json .ipynb : Generate Json files for frontend dashboard, https://github.com/kevin666iiiii/Capstone-Web.github.io/tree/main.
+
+MVP3: MVP3 notes
+
+code: Latest python files to process audio.mp3 files to generate analysis result in json format to frontend dashboard.
+  - Run in order of 1, 2, 3, 4 
 
 Model: Trained model .pth files
     
