@@ -60,9 +60,9 @@ if __name__ == '__main__':
       api_key= open_api_key 
     )
     
-    names = os.listdir('../DA')
+    names = os.listdir('DA')
     out = pd.read_csv('150df.csv')
-    data = pd.read_csv('../DA/' +names[0])
+    data = pd.read_csv('DA/' +names[0])
 
     topic = get_topic(client, data)
     expectation = get_expectation(client, data)

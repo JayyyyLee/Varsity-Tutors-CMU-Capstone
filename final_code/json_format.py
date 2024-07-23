@@ -56,7 +56,7 @@ def jsondict(temp_d, i):
     "sessionGeneral": {
       "aiSummary": s['ai_session_sum'],
       "desiredOutcome": s['expectation'],
-      "activities":list(ast.literal_eval(temp_d['topic'].iloc[i]).values()),
+      "activities":list(set(list(ast.literal_eval(temp_d['topic'].iloc[i]).values()))),
       "interactionTrend":{
         "tutorUtterances": s['t_inter'],
         "studentUtterances": s['s_inter'],
