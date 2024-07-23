@@ -71,7 +71,7 @@ if __name__ == '__main__':
     try:
           names = os.listdir('audio')
           names = sorted(names)
-          os.makedirs('data/')
-          transcribe('audio/' + names[0], 'data/')
+          os.makedirs('../data/')
+          transcribe('audio/' + names[0], '../data/')
     except:
         pass
