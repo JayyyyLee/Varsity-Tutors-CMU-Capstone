@@ -52,8 +52,8 @@ def transcribe(in_path, out_path):
 
 if __name__ == '__main__':
     
-    #assemb_api_key = os.getenv('ASSEMB_KEY')
-    aai.settings.api_key = '70f24e309fb340c6910b6137f83c9460'#assemb_api_key
+    assemb_api_key = os.getenv('ASSEMB_KEY')
+    aai.settings.api_key = assemb_api_key
     config = aai.TranscriptionConfig(
         speaker_labels=True,
         speakers_expected=2,
@@ -62,14 +62,15 @@ if __name__ == '__main__':
         disfluencies=True
     )
 
-    #open_api_key = os.getenv('OPENAI_KEY')  # Retrieves the API key from the environment variable
+    open_api_key = os.getenv('OPENAI_KEY')  # Retrieves the API key from the environment variable
     client = OpenAI(
-      api_key= "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"#open_api_key 
+      api_key= open_api_key 
     )
 
 
     try:
           names = os.listdir('audio')
+          names = sorted(names)
           os.makedirs('data/')
           transcribe('audio/' + names[0], 'data/')
     except:

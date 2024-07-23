@@ -34,7 +34,7 @@ def jsondict(temp_d, i):
   rl = gen_risk(s)
 
   dl =   {
-      "sessionId": s ['uid'],
+      "sessionId": s['uid'],
       "tutorId": i,
       "tutor": s['Tutor ID'],
       "subject":s['subject'],
@@ -69,7 +69,7 @@ def jsondict(temp_d, i):
     "tutorPerformance":{
       "aiSummary": s['tutor_performance_summary'],
       "sessionTimeline":{
-        "time":  [f"{i:02}" for i in range(0, round(du/20)*20+1, round(du/20))],
+        "time":  [f"{i:02}" for i in range(1, round(du/20)*20+1, round(du/20))],
         "categories": [
           {
             "name": "Instruction Delivery",
@@ -100,40 +100,40 @@ def jsondict(temp_d, i):
       "rating": {
         "instructionalDelivery": {
           "rating": int(s['final_instru_score']),
-          "allSessionRanking": s['final_instru_all_p'],
-          "tutorSessionRanking": s['final_instru_tutor_p'],
-          "correctExplanation": s['factually_p'] *100,
-          "incorrectExplanation": (1- s['factually_p']) *100,
-          "alignedExplanation": s['align_p'] *100 ,
-          "unalignedExplanation": (1-s['align_p']) *100 ,
-          "effectiveQuestions": s['effective_score'] *100,
-          "ineffectiveQuestions": (1-s['effective_score']) *100
+          "allSessionRanking": round(s['final_instru_all_p'], 2),
+          "tutorSessionRanking": round(s['final_instru_tutor_p']*100, 2),
+          "correctExplanation": round(s['factually_p'] *100, 2),
+          "incorrectExplanation": round((1- s['factually_p']) *100, 2),
+          "alignedExplanation": round(s['align_p'] *100, 2) ,
+          "unalignedExplanation": round((1-s['align_p']) *100, 2) ,
+          "effectiveQuestions": round(s['effective_score'] *100, 2),
+          "ineffectiveQuestions": round((1-s['effective_score']) *100, 2)
         },
         "techToolUsage": {
           "rating": int(s['final_tech_score']),
-          "allSessionRanking": s['final_tech_all_p'],
-          "tutorSessionRanking": s['final_tech_tutor_p']
+          "allSessionRanking":round( s['final_tech_all_p'], 2),
+          "tutorSessionRanking":round( s['final_tech_tutor_p']*100, 2)
         },
         "feedbackQuality": {
           "rating": int(s['final_feedback_score']),
-          "allSessionRanking": s['final_feedback_all_p'],
-          "tutorSessionRanking": s['final_feedback_tutor_p'],
-          "positiveFeedback": ast.literal_eval(temp_d['percentage_dict'].iloc[i])['POSITIVE'] if 'POSITIVE' in ast.literal_eval(temp_d['percentage_dict'].iloc[i]) else 0,
-          "neutralFeedback": ast.literal_eval(temp_d['percentage_dict'].iloc[i])['NEUTRAL'] if 'NEUTRAL' in ast.literal_eval(temp_d['percentage_dict'].iloc[i]) else 0,
-          "negativeFeedback": ast.literal_eval(temp_d['percentage_dict'].iloc[i])['NEGATIVE'] if 'NEGATIVE' in ast.literal_eval(temp_d['percentage_dict'].iloc[i]) else 0,
-          "effectivePositive": (1- s['pos_p']) *100,
-          "ineffectivePositive": s['pos_p'] * 100,
-          "effectiveNegative": (1- s['neg_p']) *100,
-          "ineffectiveNegative": s['neg_p'] *100
+          "allSessionRanking": round(s['final_feedback_all_p'], 2),
+          "tutorSessionRanking": round(s['final_feedback_tutor_p']*100, 2),
+          "positiveFeedback": round(ast.literal_eval(temp_d['percentage_dict'].iloc[i])['POSITIVE'], 2) if 'POSITIVE' in ast.literal_eval(temp_d['percentage_dict'].iloc[i]) else 0,
+          "neutralFeedback": round(ast.literal_eval(temp_d['percentage_dict'].iloc[i])['NEUTRAL'], 2) if 'NEUTRAL' in ast.literal_eval(temp_d['percentage_dict'].iloc[i]) else 0,
+          "negativeFeedback": round(ast.literal_eval(temp_d['percentage_dict'].iloc[i])['NEGATIVE'], 2) if 'NEGATIVE' in ast.literal_eval(temp_d['percentage_dict'].iloc[i]) else 0,
+          "effectivePositive":  round((1- s['pos_p']) *100, 2),
+          "ineffectivePositive": round(s['pos_p'] * 100, 2),
+          "effectiveNegative": round((1- s['neg_p']) *100, 2),
+          "ineffectiveNegative": round(s['neg_p'] *100, 2)
         },
         "socialEmotionalTeaching": {
           "rating": int(s['final_emo_score']),
-          "allSessionRanking": s['final_emo_all_p'],
-          "tutorSessionRanking": s['final_emo_tutor_p'],
+          "allSessionRanking": round(s['final_emo_all_p'], 2),
+          "tutorSessionRanking":  round(s['final_emo_tutor_p']*100, 2),
           "tutorUtterances": ast.literal_eval(s['t_emo']),
           "studentUtterances": ast.literal_eval(s['s_emo']),
           "time":  ast.literal_eval(s['x_emo']),
-          "analysis": s['words']
+          "analysis": [s['words']]
         }
       }
 
@@ -143,11 +143,11 @@ def jsondict(temp_d, i):
   
   t = temp_d[temp_d['Tutor ID'] ==  s['Tutor ID']]
   td =  {
-    "id": s ['uid'],
-    "gender": 'N/A',
+    "id": s['Tutor ID'],
+    "gender": 1,
     "tutor": s['Tutor ID'],
     "subjects": list(set(t['subject'])),
-    "tutoringExperience": 'N/A',
+    "tutoringExperience": 3,
     "sessions": len(t),
     "students": t['student_id'].nunique(),
     "trackingHistory": json.loads(t[['session_uid', 'subject', 'tutoring session occurred date']].rename(columns={'session_uid': 'sessionId', 'subject': 'subject', 'tutoring session occurred date': 'date'}).to_json(orient='records', indent=2)),

@@ -7,7 +7,7 @@ def normalize_timeline(numbers):
   max_val = max(numbers)
   normalized_numbers = (np.array(numbers) - min_val) / (max_val - min_val)
   # Scale to range 0-4
-  scaled_numbers = normalized_numbers * 4
+  scaled_numbers = normalized_numbers * 3
   # Round to nearest integer
   regularized_numbers = np.round(scaled_numbers).astype(int)
   return regularized_numbers.tolist()

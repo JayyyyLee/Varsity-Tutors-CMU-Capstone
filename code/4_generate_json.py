@@ -1,19 +1,9 @@
 import pandas as pd
-import numpy as np
-from openai import OpenAI
+
 import ast
 from json_format import jsondict
 import json
 
-def get_completion(s_prompt, u_prompt, model = "gpt-3.5-turbo-0125", temperature =0, tp = 'text'):
-  messages = [{"role":"system", "content": s_prompt}, {"role":"user", "content": u_prompt}]
-  response = client.chat.completions.create(
-      model = model,
-      messages = messages,
-      response_format={"type": tp},
-      temperature =temperature # degree of expiration (randomness) (0 same result - 1 creative)
-  )
-  return response.choices[0].message.content
 
 def str_to_list(s):
     return ast.literal_eval(s)
@@ -33,12 +23,19 @@ def calculate_percentiles(scores):
     percentiles = [round((sorted_scores.index(score) / len(sorted_scores)) * 100,1) for score in scores]
     return percentiles
 
-if __name__ == '__main__':
+def remove_duplicates(dict_list):
+    # Convert list of dicts to a set of tuples (to remove duplicates)
+    seen = set()
+    unique_dicts = []
+    for d in dict_list:
+        # Create a tuple from dictionary items to make it hashable
+        tuple_representation = (d['tutorId'], d['tutor'], tuple(d['subjects']))
+        if tuple_representation not in seen:
+            seen.add(tuple_representation)
+            unique_dicts.append(d)
+    return unique_dicts
 
-  #open_api_key = os.getenv('OPENAI_KEY')  # Retrieves the API key from the environment variable
-  client = OpenAI(
-      api_key= "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"#open_api_key 
-  )
+if __name__ == '__main__':
 
   df = pd.read_csv('150df.csv')
 
@@ -70,15 +67,16 @@ if __name__ == '__main__':
     dl,sd,td, tl = jsondict(temp_d, i)
     sessionlist.append(dl)
     tutorlist.append(tl)
-    with open("json/sessiondetail/sd" + temp_d.iloc[i]['uid'] + ".json", "w") as outfile:
+    with open("json/sessiondetail/sd_" + temp_d.iloc[i]['uid'] + ".json", "w") as outfile:
       outfile.write(json.dumps(sd, indent=2))
-    with open("json/tutordetail/td"+ temp_d.iloc[i]['uid'] +".json", "w") as outfile:
+    with open("json/tutordetail/td_"+ temp_d.iloc[i]['Tutor ID'] +".json", "w") as outfile:
       outfile.write(json.dumps(td, indent=2))
   with open("json/sessionList.json", "w") as outfile:
     outfile.write(json.dumps(sessionlist, indent=2))
+
+  tutorlist = remove_duplicates(tutorlist)
   with open("json/tutorList.json", "w") as outfile:
     outfile.write(json.dumps(tutorlist, indent=2))
-
 
 
 

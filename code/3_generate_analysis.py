@@ -55,9 +55,9 @@ def normalize_score(numbers):
 
 if __name__ == '__main__':
 
-    #open_api_key = os.getenv('OPENAI_KEY')  # Retrieves the API key from the environment variable
+    open_api_key = os.getenv('OPENAI_KEY')  # Retrieves the API key from the environment variable
     client = OpenAI(
-      api_key= "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"#open_api_key 
+      api_key= open_api_key 
     )
     
     names = os.listdir('DA')
