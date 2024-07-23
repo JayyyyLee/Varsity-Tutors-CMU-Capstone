@@ -8,15 +8,13 @@ def gen_risk(s):
   du = round(s['time']/ 60000, 1)
   d = s['Sessions duration (min)']
 
-  if s['final_instru_all_p']<0.3:
+  if s['final_instru_all_p']<25:
     risklist.append('Instru')
-  if s['final_tech_all_p']<0.3:
+  if s['final_tech_all_p']<25:
     risklist.append('tech')
-  if s['final_feedback_all_p']<0.3:
+  if s['final_feedback_all_p']<25:
     risklist.append('Feedback')
-  if s['final_emo_all_p']<0.3:
-    risklist.append('Emotion')
-  if s['final_emo_all_p']<0.3:
+  if s['final_emo_all_p']<25:
     risklist.append('Emotion')
   if s['silence_p']>70:
     risklist.append('Silent')
@@ -39,7 +37,7 @@ def jsondict(temp_d, i):
       "tutor": s['Tutor ID'],
       "subject":s['subject'],
       "date":s['tutoring session occurred date'],
-      "duration":str(du) + '/' + str(s['Sessions duration (min)']),
+      "duration":du,
       "riskyAreas": rl,
       "instructionalDelivery":int( s['final_instru_score']),
       "technicalIssues": int(s['final_tech_score']),
