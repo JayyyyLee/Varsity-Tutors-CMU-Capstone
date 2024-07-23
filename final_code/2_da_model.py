@@ -34,9 +34,8 @@ if __name__ == '__main__':
 
     tokenizer = AutoTokenizer.from_pretrained("J4YL19/CAPSTONE_DA")
     model = AutoModelForSequenceClassification.from_pretrained("J4YL19/CAPSTONE_DA")
-    try:
-        names = os.listdir('data')
-        os.makedirs('../DA/')
-        da_classify('data/' + names[0], '../DA/' +names[0]+'.csv', model)
-    except:
-        pass
+
+    names = os.listdir('data')
+    os.makedirs('DA/')
+    da_classify('data/' + names[0], 'DA/' +names[0]+'.csv', model)
+
