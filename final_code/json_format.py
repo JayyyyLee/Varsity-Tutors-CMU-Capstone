@@ -9,9 +9,9 @@ def gen_risk(s):
   d = s['Sessions duration (min)']
 
   if s['final_instru_all_p']<25:
-    risklist.append('Instru')
+    risklist.append('Instruction')
   if s['final_tech_all_p']<25:
-    risklist.append('tech')
+    risklist.append('Technology')
   if s['final_feedback_all_p']<25:
     risklist.append('Feedback')
   if s['final_emo_all_p']<25:
