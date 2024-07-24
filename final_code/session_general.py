@@ -43,6 +43,32 @@ def get_interaction(d):
 
   return (s,t,x)
 
+def get_inactive(d):
+  d = d.fillna('NA')
+  l = []
+  start = 0
+  end = 1
+  for i in range(len(d)):
+    if d['Utterance end time (milliseconds)'].iloc[i] > (end*60000):
+      l.append(list(d['Speaker'].iloc[start:i+1]))
+      start = i+1
+      end = end+1
+  l.append(list(d['Speaker'].iloc[start:len(d)-1]))
+  s = [Counter(k)['student'] for k in l]
+
+  ct = 0
+  l = []
+  for i in range(len(s)):
+    if s[i] <=1:
+      if ct == 0:
+        temp = i
+      ct +=1
+    else:
+      if ct >= 1:
+        l.append([(max(temp-1, 0)),i])
+      ct = 0
+  return l
+
 def get_low_interaction_reason(client, d):
   d = d.fillna('NA')
   l = []
@@ -67,7 +93,7 @@ def get_low_interaction_reason(client, d):
       ct +=1
     else:
       if ct >= 1:
-        l.append([(max(temp-1, 0))*60000,i*60000])
+        l.append([(max(temp-1, 0)),i])
       ct = 0
 
   temp = 0
