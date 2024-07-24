@@ -3,8 +3,10 @@ Repository for the backend model and code for Capston Team Sky-Jem.
 
 
 ## Structure
-final_code: Latest python files to process audio.mp3 files to generate analysis result in json format to frontend dashboard, https://github.com/kevin666iiiii/Final-dashboard.
+final_code: Latest python files to process audio.mp3 files to generate analysis result in json format to update frontend dashboard, https://github.com/kevin666iiiii/Final-dashboard.
   - Run in order of 1, 2, 3, 4
+  - Python environment requirement listed in requirement.txt
+  - Need AssemblyAI api for audio transcribing and openai api for analysis. 
     
 Data
   - da_schema.csv : Dialogue act classification schema used for MVP1
