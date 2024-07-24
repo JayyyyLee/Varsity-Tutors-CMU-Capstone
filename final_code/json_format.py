@@ -61,7 +61,7 @@ def jsondict(temp_d, i):
         "tutorUtterances": s['t_inter'],
         "studentUtterances": s['s_inter'],
         "time":  s['x_inter'],
-        "analysis": ast.literal_eval(temp_d['low_inter_reason'].iloc[i])
+        "analysis": [f"{start}-{end} min: {explanation}" for (start, end), explanation in zip(ast.literal_eval(s['low_inter_time']),ast.literal_eval( s['low_inter_reason']))]
       }
     },
     "tutorPerformance":{
