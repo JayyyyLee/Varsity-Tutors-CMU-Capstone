@@ -3,7 +3,7 @@ Repository of the code for Capston Team Sky-Jem.
 
 
 ## Structure
-CODE: Latest python files to process audio.mp3 files to generate analysis result in json format to frontend dashboard, https://github.com/kevin666iiiii/Final-dashboard.
+final_code: Latest python files to process audio.mp3 files to generate analysis result in json format to frontend dashboard, https://github.com/kevin666iiiii/Final-dashboard.
   - Run in order of 1, 2, 3, 4
     
 Data
