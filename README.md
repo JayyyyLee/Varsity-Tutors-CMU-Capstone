@@ -1,5 +1,5 @@
 # Varsity Tutors & CMU METALS Capstone
-Repository of the code for Capston Team Sky-Jem.
+Repository for the backend model and code for Capston Team Sky-Jem.
 
 
 ## Structure
