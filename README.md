@@ -3,6 +3,9 @@ Repository of the code for Capston Team Sky-Jem.
 
 
 ## Structure
+CODE: Latest python files to process audio.mp3 files to generate analysis result in json format to frontend dashboard, https://github.com/kevin666iiiii/Final-dashboard.
+  - Run in order of 1, 2, 3, 4
+    
 Data
   - da_schema.csv : Dialogue act classification schema used for MVP1
   - general_rubric.csv : General rubric for session quality assessment for MVP1
@@ -19,10 +22,7 @@ MVP2: Run this after MVP1
 
 MVP3: MVP3 notes
 
-code: Latest python files to process audio.mp3 files to generate analysis result in json format to frontend dashboard.
-  - Run in order of 1, 2, 3, 4 
-
-Model: Trained model .pth files
+Model: Trained model .pth files for MVP2
     
 Notebook: Random notebooks during exploration and development 
 
