@@ -43,6 +43,52 @@ def get_interaction(d):
 
   return (s,t,x)
 
+def get_low_student(client, d):
+  d = d.fillna('NA')
+  l = []
+  start = 0
+  end = 1
+  for i in range(len(d)):
+    if d['Utterance end time (milliseconds)'].iloc[i] > (end*60000):
+      l.append(list(d['Speaker'].iloc[start:i+1]))
+      start = i+1
+      end = end+1
+  l.append(list(d['Speaker'].iloc[start:len(d)-1]))
+  s = [Counter(k)['student'] for k in l]
+
+  ct = 0
+  sl = []
+  for i in range(len(s)):
+    if s[i] <=1:
+      if ct == 0:
+        temp = i
+      ct +=1
+    else:
+      if ct >= 1:
+        sl.append([(max(temp-1, 0)),i])
+      ct = 0
+
+  temp = 0
+  quote = ''
+  results = []
+
+  for i in range(len(d)):
+    if temp >= len(sl):
+      break
+    if (d.iloc[i]['Utterance start time (milliseconds)'] >= sl[temp][0]):
+      quote += d['Speaker'].iloc[i] + ':' + d['Utterance'].iloc[i] +'\n'
+    if (d.iloc[i]['Utterance end time (milliseconds)'] >= sl[temp][1]):
+
+      prompt_s = f"""I will provide you a chunk of transcript from a one-on-one tutoring session between a tutor and student.
+              This is a chunk before a period of silence during the session. """
+      prompt_u = f"""Here is the transcript {quote}. Your task is to analyze the reason why the tutor and the student had a period of silence after this.
+              Paraphrase the reason to 15 words and output. """
+      r = get_completion(client, prompt_s, prompt_u)
+      results.append(r)
+      temp += 1
+      quote = ''
+
+  return(results, sl )
 
 def get_low_interaction_reason(client, d):
   d = d.fillna('NA')

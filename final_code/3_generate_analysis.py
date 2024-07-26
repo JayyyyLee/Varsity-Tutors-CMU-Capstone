@@ -3,7 +3,7 @@ import numpy as np
 from openai import OpenAI
 import os
 
-from session_general import get_topic, get_expectation, get_low_interaction_reason, get_interaction, get_session_general_summary
+from session_general import get_topic, get_expectation, get_low_interaction_reason, get_interaction, get_low_student, get_session_general_summary
 
 from Instruction import get_instruction
 from Feedback import get_feedback
@@ -67,6 +67,7 @@ if __name__ == '__main__':
     topic = get_topic(client, data)
     expectation = get_expectation(client, data)
     low_inter_reason, low_inter_time = get_low_interaction_reason(client, data)
+    low_reason_student, low_inter_student = get_low_student(client, data)
     s_inter,t_inter, x_inter = get_interaction(data)
     ai_session_sum = get_session_general_summary(client, expectation, topic, low_inter_reason, low_inter_time)
 
@@ -100,7 +101,8 @@ if __name__ == '__main__':
       'tutor_performance_summary': get_tutor_performance_summary(instru_l, tech_l, feedback_l, neg_timeline),
       'final_tech_score': 0, 'final_feedback_score': 0, 'final_emo_score': 0, 'final_instru_score': 0,
       'final_tech_all_p': 0, 'final_feedback_all_p': 0, 'final_emo_all_p': 0, 'final_instru_all_p': 0,
-      'time': data['Utterance end time (milliseconds)'].iloc[-1]
+      'time': data['Utterance end time (milliseconds)'].iloc[-1], 
+      'low_reason_student': low_reason_student, 'low_inter_student': low_inter_student
     }
 
     out.loc[len(out)] = dic
