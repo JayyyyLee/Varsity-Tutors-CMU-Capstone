@@ -57,15 +57,15 @@ def get_low_student(client, d):
   s = [Counter(k)['student'] for k in l]
 
   ct = 0
-  sl = []
+  l = []
   for i in range(len(s)):
     if s[i] <=1:
       if ct == 0:
         temp = i
       ct +=1
     else:
-      if ct >= 1:
-        sl.append([(max(temp-1, 0)),i])
+      if ct >=3:
+        l.append([(max(temp-1, 0)+1),i-1])
       ct = 0
 
   temp = 0
@@ -73,11 +73,11 @@ def get_low_student(client, d):
   results = []
 
   for i in range(len(d)):
-    if temp >= len(sl):
+    if temp >= len(l):
       break
-    if (d.iloc[i]['Utterance start time (milliseconds)'] >= sl[temp][0]):
+    if (d.iloc[i]['Utterance start time (milliseconds)'] >= l[temp][0]):
       quote += d['Speaker'].iloc[i] + ':' + d['Utterance'].iloc[i] +'\n'
-    if (d.iloc[i]['Utterance end time (milliseconds)'] >= sl[temp][1]):
+    if (d.iloc[i]['Utterance end time (milliseconds)'] >= l[temp][1]):
 
       prompt_s = f"""I will provide you a chunk of transcript from a one-on-one tutoring session between a tutor and student.
               This is a chunk before a period of silence during the session. """
@@ -88,7 +88,9 @@ def get_low_student(client, d):
       temp += 1
       quote = ''
 
-  return(results, sl )
+  outl = [{"min": pair[0], "max": pair[1]} for pair in l]
+  out = [f"{start}-{end} min: {explanation}" for (start, end), explanation in zip(l,results)]
+  return out, outl
 
 def get_low_interaction_reason(client, d):
   d = d.fillna('NA')
@@ -113,8 +115,8 @@ def get_low_interaction_reason(client, d):
         temp = i
       ct +=1
     else:
-      if ct >= 1:
-        l.append([(max(temp-1, 0)),i])
+      if ct >= 3:
+        l.append([(max(temp-1, 0)+1),i-1])
       ct = 0
 
   temp = 0
@@ -132,11 +134,14 @@ def get_low_interaction_reason(client, d):
               This is a chunk before a period of silence during the session. """
       prompt_u = f"""Here is the transcript {quote}. Your task is to analyze the reason why the tutor and the student had a period of silence after this.
               Paraphrase the reason to 15 words and output. """
-      r = get_completion(client, prompt_s, prompt_u)
+      r = get_completion(client,prompt_s, prompt_u)
       result.append(r)
       temp += 1
       quote = ''
-  return(result, l)
+
+  outl = [{"min": pair[0], "max": pair[1]} for pair in l]
+  out = [f"{start}-{end} min: {explanation}" for (start, end), explanation in zip(l,result)]
+  return out, outl
 
 def get_session_general_summary(client, expectation, topic, low_inter_reason, low_inter_time):
   prompt_s = f"""You are an expert educator, I will provide you some descriptive information about a one-on-one tutoring session between a tutor and student,

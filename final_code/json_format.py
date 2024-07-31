@@ -62,11 +62,11 @@ def jsondict(temp_d, i):
         "studentUtterances": s['s_inter'],
         "time":  s['x_inter'],
         "silencePeriods": {
-          "timeHighline": [{"min": pair[0], "max": pair[1]} for pair in ast.literal_eval(s['low_inter_time'])],
-          "analysis": s['low_inter_reason']
+          "timeHighline": list(ast.literal_eval(s['low_inter_time'])),
+          "analysis": list(ast.literal_eval(s['low_inter_reason']))
         },
         "studentInactivePeriods": {
-          "timeHighline": [{"min": pair[0], "max": pair[1]} for pair in ast.literal_eval(s['low_inter_student'])],
+          "timeHighline": list(ast.literal_eval(s['low_inter_student'])),
           "analysis": list(ast.literal_eval(s['low_reason_student']))
         }
       }
